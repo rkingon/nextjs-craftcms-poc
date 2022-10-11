@@ -1,0 +1,28 @@
+fragment RecipeFields on recipes_recipes_Entry {
+	id
+	title
+	slug
+	... on recipes_recipes_Entry {
+		id
+		recipeTotalTime
+		recipeServings
+		recipeIngredients {
+			... on recipeIngredients_ingredient_BlockType {
+				id
+				ingredient
+			}
+		}
+		recipeDirections {
+			... on recipeDirections_direction_BlockType {
+				id
+				direction
+			}
+		}
+	}
+}
+
+query Recipes($slug: [String]) {
+	entries(section: "recipes", slug: $slug) {
+		...RecipeFields
+	}
+}

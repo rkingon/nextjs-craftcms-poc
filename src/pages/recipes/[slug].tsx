@@ -38,13 +38,18 @@ const RecipePage: NextPage<RecipePageProps> = ({ recipe }) => {
 								Ingredients
 							</Typography>
 							<Box component="ul">
-								{recipe.recipeIngredients.map(({ id, ingredient }) => (
-									<Box
-										component="li"
-										key={id}
-										dangerouslySetInnerHTML={{ __html: ingredient }}
-									/>
-								))}
+								{recipe.recipeIngredients?.map((entry) => {
+									if (!entry) {
+										return null
+									}
+									return (
+										<Box
+											component="li"
+											key={entry.id}
+											dangerouslySetInnerHTML={{ __html: entry.ingredient! }}
+										/>
+									)
+								})}
 							</Box>
 						</Stack>
 						<Stack spacing={2}>
@@ -52,13 +57,18 @@ const RecipePage: NextPage<RecipePageProps> = ({ recipe }) => {
 								Directions
 							</Typography>
 							<Box component="ol">
-								{recipe.recipeDirections.map(({ id, direction }) => (
-									<Box
-										component="li"
-										key={id}
-										dangerouslySetInnerHTML={{ __html: direction }}
-									/>
-								))}
+								{recipe.recipeDirections?.map((entry) => {
+									if (!entry) {
+										return null
+									}
+									return (
+										<Box
+											component="li"
+											key={entry.id}
+											dangerouslySetInnerHTML={{ __html: entry.direction! }}
+										/>
+									)
+								})}
 							</Box>
 						</Stack>
 					</Stack>
@@ -74,7 +84,7 @@ export const getServerSideProps: GetServerSideProps<RecipePageProps, { slug: str
 	const recipes = await fetchRecipes({
 		slug: params?.slug
 	})
-	const recipe = recipes[0]
+	const recipe = recipes?.[0]
 	if (recipe) {
 		return {
 			props: {

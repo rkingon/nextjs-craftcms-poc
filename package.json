@@ -7,7 +7,9 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"typecheck": "tsc --noEmit",
+		"codegen": "envr graphql-codegen --config codegen.ts"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.0",
@@ -20,6 +22,10 @@
 		"react-dom": "18.2.0"
 	},
 	"devDependencies": {
+		"@graphql-codegen/cli": "2.13.5",
+		"@graphql-codegen/client-preset": "^1.0.5",
+		"@graphql-codegen/typed-document-node": "^2.3.3",
+		"@rkingon/envr": "^1.0.0",
 		"@types/node": "18.8.3",
 		"@types/react": "18.0.21",
 		"@types/react-dom": "18.0.6",
